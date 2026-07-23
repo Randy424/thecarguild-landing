@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Car Guild: An honest car-sharing community, being built in the open</title>
+<meta name="description" content="The Car Guild is a car-sharing community we're building for Los Angeles, founded on a simple cost promise: a small flat fee, incidental fees handed back to hosts, and the freedom to bring your own insurer. It doesn't exist yet. Here's what we're committing to." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #FBF9F4;
+    --paper-warm: #F4EFE4;
+    --teal: #1F3B3A;
+    --teal-deep: #162C2B;
+    --amber: #C77D3A;
+    --amber-soft: #E0A968;
+    --ink: #1A1A17;
+    --muted: #575751;
+    --line: rgba(31, 59, 58, 0.14);
+    --line-strong: rgba(31, 59, 58, 0.28);
+    --strike: #B0483B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
+
+  /* Top */
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .crest { width: 30px; height: 30px; }
+  .brand-name { font-family: 'Newsreader', serif; font-weight: 600; font-size: 1.2rem; color: var(--teal); letter-spacing: -0.01em; }
+  .brand-name .the { color: var(--amber); font-style: italic; font-weight: 500; }
+  .status-chip {
+    font-size: 0.7rem; letter-spacing: 0.13em; text-transform: uppercase; font-weight: 600;
+    color: var(--teal); border: 1px solid var(--line-strong); padding: 6px 12px; border-radius: 100px;
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .status-chip .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+  @media (max-width: 560px){ .status-chip { display: none; } }
+
+  /* Hero */
+  .hero { padding: 68px 0 56px; }
+  .hero .kicker {
+    font-family: 'Inter'; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--amber); font-weight: 600; margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Newsreader', serif; font-weight: 600;
+    font-size: clamp(2.5rem, 5.6vw, 4.2rem); line-height: 1.04; letter-spacing: -0.02em;
+    color: var(--teal); max-width: 18ch;
+  }
+  h1 em { font-style: italic; color: var(--amber); }
+  .hero .honest-line {
+    margin-top: 26px; font-size: clamp(1.05rem, 1.6vw, 1.25rem); max-width: 52ch; color: #333330;
+  }
+  .hero .honest-line b { color: var(--teal); font-weight: 600; }
+  .hero-cta { margin-top: 36px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+
+  .btn {
+    font-family: 'Inter'; font-weight: 600; font-size: 1rem; padding: 15px 30px;
+    border-radius: 3px; border: none; cursor: pointer; text-decoration: none; display: inline-block;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary { background: var(--teal); color: var(--paper); box-shadow: 0 2px 0 var(--amber); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 0 var(--amber); }
+  .btn-primary:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+  .hero-cta .aside { font-size: 0.9rem; color: var(--muted); }
+
+  /* Honesty banner */
+  .truth-strip {
+    background: var(--teal); color: var(--paper); padding: 22px 0;
+  }
+  .truth-strip .wrap { display: flex; align-items: center; gap: 18px; }
+  .truth-strip svg { width: 26px; height: 26px; flex-shrink: 0; color: var(--amber-soft); }
+  .truth-strip p { font-size: 0.98rem; opacity: 0.92; }
+  .truth-strip b { color: var(--amber-soft); font-weight: 600; }
+
+  /* Commitments (signature) */
+  .commit { padding: 76px 0 40px; }
+  .commit-head { max-width: 44ch; margin-bottom: 44px; }
+  .commit-head h2 { font-family: 'Newsreader', serif; font-weight: 600; font-size: clamp(1.9rem, 3.6vw, 2.8rem); color: var(--teal); line-height: 1.1; letter-spacing: -0.01em; }
+  .commit-head p { margin-top: 14px; color: var(--muted); font-size: 1.02rem; }
+
+  .promise {
+    display: grid; grid-template-columns: 96px 1fr; gap: 28px; align-items: start;
+    padding: 30px 0; border-top: 1px solid var(--line);
+  }
+  .promise:last-child { border-bottom: 1px solid var(--line); }
+  .promise .stance {
+    font-family: 'Newsreader', serif; font-style: italic; font-size: 1.15rem; font-weight: 600;
+    padding-top: 2px;
+  }
+  .promise.will .stance { color: var(--teal); }
+  .promise.wont .stance { color: var(--strike); }
+  .promise .body h3 { font-family: 'Newsreader', serif; font-size: 1.4rem; font-weight: 600; color: var(--ink); margin-bottom: 7px; letter-spacing: -0.01em; }
+  .promise .body p { color: var(--muted); font-size: 0.98rem; max-width: 60ch; }
+  .promise .body p b { color: var(--teal); font-weight: 600; }
+  @media (max-width: 620px){
+    .promise { grid-template-columns: 1fr; gap: 8px; }
+    .promise .stance { padding-top: 0; }
+  }
+
+  /* Insurance callout */
+  .insurance { padding: 40px 0 76px; }
+  .insurance-card {
+    background: var(--paper-warm); border: 1.5px solid var(--teal); padding: 44px 40px;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center;
+  }
+  .insurance-card h3 { font-family: 'Newsreader', serif; font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; color: var(--teal); line-height: 1.12; letter-spacing: -0.01em; }
+  .insurance-card p { margin-top: 14px; color: var(--muted); font-size: 0.98rem; }
+  .insurance-card .opts { display: flex; flex-direction: column; gap: 12px; }
+  .opt { display: flex; gap: 13px; align-items: flex-start; font-size: 0.96rem; }
+  .opt svg { width: 20px; height: 20px; color: var(--amber); flex-shrink: 0; margin-top: 2px; }
+  .opt b { color: var(--teal); }
+  @media (max-width: 680px){ .insurance-card { grid-template-columns: 1fr; gap: 26px; padding: 32px 26px; } }
+
+  /* Signup */
+  .join { padding: 20px 0 88px; }
+  .join-card { max-width: 620px; margin: 0 auto; text-align: center; border: 1.5px solid var(--teal); padding: 50px 44px; background: var(--paper-warm); }
+  .join-card .pre {
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .join-card .pre .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+  .join-card h2 { font-family: 'Newsreader', serif; font-weight: 600; font-size: clamp(1.8rem, 3.4vw, 2.5rem); color: var(--teal); line-height: 1.08; letter-spacing: -0.01em; }
+  .join-card > p { margin-top: 15px; color: var(--muted); font-size: 1rem; max-width: 46ch; margin-left: auto; margin-right: auto; }
+
+  form { margin-top: 30px; display: flex; flex-direction: column; gap: 13px; }
+  .seg { display: flex; gap: 8px; }
+  .seg button {
+    flex: 1; font-family: 'Inter'; font-size: 0.9rem; font-weight: 500; padding: 11px;
+    border: 1.5px solid var(--line-strong); background: transparent; color: var(--teal);
+    cursor: pointer; border-radius: 3px; transition: all 0.15s ease;
+  }
+  .seg button[aria-pressed="true"] { background: var(--teal); color: var(--paper); border-color: var(--teal); }
+  .seg button:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; }
+  input[type="email"], input[type="text"] {
+    width: 100%; font-family: 'Inter'; font-size: 1rem; padding: 14px 16px;
+    border: 1.5px solid var(--line-strong); border-radius: 3px; background: var(--paper); color: var(--ink);
+    transition: border-color 0.15s ease;
+  }
+  input::placeholder { color: #8f8f85; }
+  input:focus { outline: none; border-color: var(--teal); }
+  input:focus-visible { outline: 3px solid var(--amber); outline-offset: 1px; }
+  form .btn-primary { width: 100%; padding: 16px; font-size: 1.05rem; margin-top: 3px; }
+  .fine { margin-top: 14px; font-size: 0.82rem; color: #6f6f66; max-width: 44ch; margin-left: auto; margin-right: auto; }
+  .hidden { display: none !important; }
+
+  .success { display: none; }
+  .success.show { display: block; animation: rise 0.5s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px);} to { opacity:1; transform:none; } }
+  .success .mark { width: 58px; height: 58px; margin: 0 auto 16px; }
+  .success h3 { font-family: 'Newsreader', serif; font-size: 1.6rem; color: var(--teal); font-weight: 600; }
+  .success p { color: var(--muted); margin-top: 10px; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 46px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  footer .fbrand { font-family: 'Newsreader', serif; font-weight: 600; color: var(--teal); font-size: 1.05rem; }
+  footer .fnote { font-size: 0.8rem; color: #6f6f66; }
+
+  @media (prefers-reduced-motion: reduce){ * { animation: none !important; transition: none !important; scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <svg class="crest" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M20 2 L35 8 V20 C35 29 28 35 20 38 C12 35 5 29 5 20 V8 Z" fill="#1F3B3A" stroke="#C77D3A" stroke-width="1.5"/>
+          <path d="M13 22 h14 M15 22 v-3 a5 5 0 0 1 10 0 v3" stroke="#E0A968" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <circle cx="16" cy="25" r="1.5" fill="#E0A968"/><circle cx="24" cy="25" r="1.5" fill="#E0A968"/>
+        </svg>
+        <span class="brand-name"><span class="the">The</span> Car Guild</span>
+      </div>
+      <span class="status-chip"><span class="pulse"></span> Being built · Los Angeles</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker">A car-sharing community, built in the open</p>
+      <h1>We haven't launched yet. We're telling you <em>exactly</em> what we'll be.</h1>
+      <p class="honest-line">Most car-sharing platforms take a big, blended cut and bury the rest in fees you can't see. <b>The Car Guild is being built on the opposite idea:</b> a small flat fee, incidental charges handed straight back to hosts, and the freedom to bring your own insurer. Here's our commitment, before we've asked you for a thing.</p>
+      <div class="hero-cta">
+        <a href="#join" class="btn btn-primary">Follow along · get early access</a>
+        <span class="aside">No product yet · no payment · just the plan</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="truth-strip">
+    <div class="wrap">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.4-7 9-4.1-1.6-7-4.8-7-9V6z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><b>In plain terms:</b> this is an early-stage project, not a live service. We're gauging interest from LA hosts and drivers while we build. Nothing on this page is a live price or a guaranteed launch date. It's what we're committing to deliver.</p>
+    </div>
+  </div>
+
+  <section class="commit">
+    <div class="wrap">
+      <div class="commit-head">
+        <h2>What we're committing to</h2>
+        <p>The whole reason to build another car-sharing platform is to do the money differently. So we'll say it out loud, and you can hold us to it.</p>
+      </div>
+
+      <div class="promise will">
+        <div class="stance">We will</div>
+        <div class="body">
+          <h3>Charge one small, flat fee</h3>
+          <p>A single modest cut on the rental: the kind you can see and check, not a quarter-or-more blended take. <b>We'll publish the exact number the day we set it</b>, and we're building the whole model to keep it in the single digits.</p>
+        </div>
+      </div>
+
+      <div class="promise will">
+        <div class="stance">We will</div>
+        <div class="body">
+          <h3>Hand incidental fees back to hosts</h3>
+          <p>Cleaning, delivery, and similar add-ons are the host's work and the host's money. <b>Our intent is that hosts keep those in full</b>, rather than the platform skimming a share or a processing cut off the top.</p>
+        </div>
+      </div>
+
+      <div class="promise will">
+        <div class="stance">We will</div>
+        <div class="body">
+          <h3>Let hosts bring their own insurer</h3>
+          <p>We're designing the platform so a host can use their own qualifying commercial coverage if they prefer, or an option we help arrange. <b>The point is choice and a price you can see</b>, instead of coverage bundled invisibly into a big commission.</p>
+        </div>
+      </div>
+
+      <div class="promise wont">
+        <div class="stance">We won't</div>
+        <div class="body">
+          <h3>Bury the math or invent surprise fees</h3>
+          <p>Every charge, itemized. No percentage service fee that quietly grows with the trip, no line items that appear only at checkout. If we can't show you where a dollar goes, we won't charge it.</p>
+        </div>
+      </div>
+
+      <div class="promise wont">
+        <div class="stance">We won't</div>
+        <div class="body">
+          <h3>Pretend we're further along than we are</h3>
+          <p>We won't show fake sign-up counters, invent a launch date we can't hit, or quote coverage we haven't secured. <b>When something isn't decided yet, we'll say so</b>, including on this page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="insurance">
+    <div class="wrap">
+      <div class="insurance-card">
+        <div>
+          <h3>Your car, your coverage, your call.</h3>
+          <p>Insurance is usually the most opaque part of car sharing, bundled into the platform's cut so you never see what it really costs. We're building it the other way around: as its own visible line, with room for you to choose.</p>
+        </div>
+        <div class="opts">
+          <div class="opt">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.4-7 9-4.1-1.6-7-4.8-7-9V6z" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span><b>Bring your own insurer.</b> Use qualifying commercial coverage you already trust, if that's your preference.</span>
+          </div>
+          <div class="opt">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.4-7 9-4.1-1.6-7-4.8-7-9V6z" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span><b>Or use an option we help arrange</b>, priced transparently and shown as its own line, never hidden in a commission.</span>
+          </div>
+          <div class="opt">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.4-7 9-4.1-1.6-7-4.8-7-9V6z" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span><b>Either way, you see the price.</b> Coverage details will be finalized with licensed partners before launch.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="join" id="join">
+    <div class="wrap">
+      <div class="join-card">
+        <div id="form-view">
+          <div class="pre"><span class="pulse"></span> Early interest · Los Angeles</div>
+          <h2>Want to know how this turns out?</h2>
+          <p>Leave your email and we'll keep you posted as we build, and reach out for your honest take on what the fee and the rules should be. No obligation, and you're free to walk away anytime.</p>
+          <form id="waitlist" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="waitlist" />
+            <input type="hidden" id="role-field" name="role" value="host" />
+            <p class="hidden">
+              <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
+            <div class="seg" role="group" aria-label="I am a">
+              <button type="button" id="role-host" aria-pressed="true">I have a car to share</button>
+              <button type="button" id="role-renter" aria-pressed="false">I'd want to rent</button>
+            </div>
+            <div class="field"><input type="email" id="email" name="email" placeholder="Email address" required aria-label="Email address" /></div>
+            <div class="field-row">
+              <div class="field"><input type="text" id="name" name="name" placeholder="First name (optional)" aria-label="First name" /></div>
+              <div class="field"><input type="text" id="area" name="area" placeholder="LA area (optional)" aria-label="LA area" /></div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit-btn">Keep me posted</button>
+          </form>
+          <p class="fine">We'll only email you about The Car Guild: updates as we build, and an early-access note when there's something real to try. We won't sell or share your address, and you can unsubscribe anytime.</p>
+        </div>
+        <div class="success" id="success-view">
+          <svg class="mark" viewBox="0 0 58 58" fill="none" aria-hidden="true">
+            <circle cx="29" cy="29" r="27" fill="#1F3B3A" stroke="#C77D3A" stroke-width="2"/>
+            <path d="M18 30l7 7 14-15" stroke="#E0A968" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Thanks, you're on the list.</h3>
+          <p id="success-msg">We'll keep you posted as this comes together, and we'll ask for your honest input along the way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span class="fbrand">The Car Guild</span>
+      <span class="fnote">An honest car-sharing community, being built for Los Angeles · early-stage project, not yet a live service</span>
+    </div>
+  </footer>
+
+<script>
+  const roleHost = document.getElementById('role-host');
+  const roleRenter = document.getElementById('role-renter');
+  const roleField = document.getElementById('role-field');
+  let role = 'host';
+  function setRole(r){
+    role = r;
+    roleField.value = r;
+    roleHost.setAttribute('aria-pressed', r==='host');
+    roleRenter.setAttribute('aria-pressed', r==='renter');
+  }
+  roleHost.addEventListener('click', ()=>setRole('host'));
+  roleRenter.addEventListener('click', ()=>setRole('renter'));
+
+  function encode(data) {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+  }
+
+  const form = document.getElementById('waitlist');
+  const emailInput = document.getElementById('email');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+      emailInput.focus(); emailInput.style.borderColor = '#B0483B'; return;
+    }
+    const payload = {
+      'form-name': 'waitlist',
+      role,
+      email,
+      name: document.getElementById('name').value.trim(),
+      area: document.getElementById('area').value.trim()
+    };
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode(payload)
+    })
+    .then(() => {
+      document.getElementById('form-view').style.display='none';
+      const sv = document.getElementById('success-view');
+      document.getElementById('success-msg').textContent = role==='host'
+        ? "We'll keep you posted as this comes together, and we'll ask what you think the fee and rules should be."
+        : "We'll let you know the moment there are real cars to rent near you in LA.";
+      sv.classList.add('show');
+    })
+    .catch((error) => {
+      alert("Something went wrong submitting — please try again in a moment.");
+      console.error(error);
+    });
+  });
+</script>
+</body>
+</html>
