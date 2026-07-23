@@ -37,15 +37,12 @@ netlify dev
 Done — pushed to [github.com/Randy424/thecarguild-landing](https://github.com/Randy424/thecarguild-landing). Future changes: commit and `git push` from this folder as normal.
 
 ### 2. Connect Netlify
-1. Go to [app.netlify.com](https://app.netlify.com) → sign up / log in with GitHub.
-2. **Add new site → Import an existing project → GitHub** → authorize Netlify → select `thecarguild-landing`.
-3. Build settings: leave **Build command** blank and **Publish directory** as `/` (it's a static file, nothing to build).
-4. Click **Deploy site**. You'll get a live URL like `thecarguild-landing.netlify.app` in under a minute.
+Done — live at **[thecarguild-landing.netlify.app](https://thecarguild-landing.netlify.app)**, deploying from `main` (auto-publish on every push).
 
 ### 3. Confirm forms are working
-1. In the Netlify dashboard, go to **Forms** — after your first deploy, "waitlist" should appear as a detected form (Netlify parses the static HTML at build/deploy time, so this happens automatically because of `data-netlify="true"`).
-2. Submit a test entry on the live page.
-3. Refresh **Forms → waitlist** — your test submission should appear. You can also set up email notifications under **Forms → Settings and usage → Form notifications**.
+Done, but **note a gotcha**: having `data-netlify="true"` on the `<form>` tag is not enough by itself. Netlify's project-level **Forms → form detection** setting is a separate toggle and is off by default on a fresh project — until it's enabled, the first deploy won't register any forms even though the HTML attribute is correct. We hit exactly this: first deploy showed no forms under **Forms**, had to enable detection under **Forms → Enable form detection**, then trigger a redeploy (**Deploys → Trigger deploy → Deploy project without cache**) before "waitlist" showed up as an active form. Verified end-to-end after that with a real test submission (honeypot spam protection confirmed active too).
+
+If you ever spin up a new Netlify project from this repo, check **Forms → form detection is enabled** right after the first deploy — don't assume the HTML attribute alone is sufficient.
 
 ### 4. (Later) Custom domain
 Once `thecarguild.com` is purchased:
