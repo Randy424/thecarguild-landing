@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 <style>
   :root {
     --paper: #FBF9F4;
@@ -45,8 +46,19 @@
   .status-chip .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
   @media (max-width: 560px){ .status-chip { display: none; } }
 
+  /* Full-page ambient particle field */
+  #particles-hero { position: fixed; inset: 0; z-index: 0; pointer-events: auto; }
+  body > *:not(#particles-hero) { position: relative; z-index: 1; }
+
+  /* Parallax decorative blobs */
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0; opacity: 0.35; }
+  .blob-amber { width: 340px; height: 340px; background: var(--amber-soft); top: -80px; right: -100px; }
+  .blob-teal { width: 420px; height: 420px; background: var(--teal); bottom: -160px; left: -140px; opacity: 0.18; }
+  .commit, .insurance { position: relative; overflow: hidden; }
+
   /* Hero */
-  .hero { padding: 68px 0 56px; }
+  .hero { padding: 68px 0 56px; position: relative; overflow: hidden; }
+  .hero > .wrap { position: relative; z-index: 1; }
   .hero .kicker {
     font-family: 'Inter'; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--amber); font-weight: 600; margin-bottom: 24px;
@@ -136,6 +148,7 @@
   .seg { display: flex; gap: 8px; }
   .seg button {
     flex: 1; font-family: 'Inter'; font-size: 0.9rem; font-weight: 500; padding: 11px;
+    min-height: 44px;
     border: 1.5px solid var(--line-strong); background: transparent; color: var(--teal);
     cursor: pointer; border-radius: 3px; transition: all 0.15s ease;
   }
@@ -167,10 +180,18 @@
   footer .fbrand { font-family: 'Newsreader', serif; font-weight: 600; color: var(--teal); font-size: 1.05rem; }
   footer .fnote { font-size: 0.8rem; color: #6f6f66; }
 
+  @media (max-width: 480px){
+    .wrap { padding: 0 20px; }
+    .hero { padding: 48px 0 40px; }
+    .join-card { padding: 36px 24px; }
+    .field-row { flex-direction: column; }
+  }
+
   @media (prefers-reduced-motion: reduce){ * { animation: none !important; transition: none !important; scroll-behavior: auto; } }
 </style>
 </head>
 <body>
+  <div id="particles-hero" aria-hidden="true"></div>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -198,20 +219,21 @@
   </header>
 
   <div class="truth-strip">
-    <div class="wrap">
+    <div class="wrap" data-aos="fade-up">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.4-7 9-4.1-1.6-7-4.8-7-9V6z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <p><b>In plain terms:</b> this is an early-stage project, not a live service. We're gauging interest from LA hosts and drivers while we build. Nothing on this page is a live price or a guaranteed launch date. It's what we're committing to deliver.</p>
     </div>
   </div>
 
   <section class="commit">
+    <div class="blob blob-amber" data-parallax="0.25" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="commit-head">
+      <div class="commit-head" data-aos="fade-up">
         <h2>What we're committing to</h2>
         <p>The whole reason to build another car-sharing platform is to do the money differently. So we'll say it out loud, and you can hold us to it.</p>
       </div>
 
-      <div class="promise will">
+      <div class="promise will" data-aos="flip-left" data-aos-delay="0">
         <div class="stance">We will</div>
         <div class="body">
           <h3>Charge one small, flat fee</h3>
@@ -219,7 +241,7 @@
         </div>
       </div>
 
-      <div class="promise will">
+      <div class="promise will" data-aos="flip-right" data-aos-delay="80">
         <div class="stance">We will</div>
         <div class="body">
           <h3>Hand incidental fees back to hosts</h3>
@@ -227,7 +249,7 @@
         </div>
       </div>
 
-      <div class="promise will">
+      <div class="promise will" data-aos="flip-left" data-aos-delay="160">
         <div class="stance">We will</div>
         <div class="body">
           <h3>Let hosts bring their own insurer</h3>
@@ -235,7 +257,7 @@
         </div>
       </div>
 
-      <div class="promise wont">
+      <div class="promise wont" data-aos="flip-right" data-aos-delay="240">
         <div class="stance">We won't</div>
         <div class="body">
           <h3>Bury the math or invent surprise fees</h3>
@@ -243,7 +265,7 @@
         </div>
       </div>
 
-      <div class="promise wont">
+      <div class="promise wont" data-aos="flip-left" data-aos-delay="320">
         <div class="stance">We won't</div>
         <div class="body">
           <h3>Pretend we're further along than we are</h3>
@@ -254,8 +276,9 @@
   </section>
 
   <section class="insurance">
+    <div class="blob blob-teal" data-parallax="0.15" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="insurance-card">
+      <div class="insurance-card" data-aos="zoom-in-up">
         <div>
           <h3>Your car, your coverage, your call.</h3>
           <p>Insurance is usually the most opaque part of car sharing, bundled into the platform's cut so you never see what it really costs. We're building it the other way around: as its own visible line, with room for you to choose.</p>
@@ -280,7 +303,7 @@
 
   <section class="join" id="join">
     <div class="wrap">
-      <div class="join-card">
+      <div class="join-card" data-aos="zoom-in">
         <div id="form-view">
           <div class="pre"><span class="pulse"></span> Early interest · Los Angeles</div>
           <h2>Want to know how this turns out?</h2>
@@ -376,6 +399,77 @@
       console.error(error);
     });
   });
+</script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.12.0/tsparticles.slim.bundle.min.js"></script>
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll-reveal (AOS) — snappier, more dramatic entrances than the restrained variant
+  if (window.AOS && !prefersReducedMotion) {
+    AOS.init({ duration: 550, easing: 'ease-out-back', once: true, offset: 60 });
+  }
+
+  // Smooth wheel scrolling (Lenis leaves native touch scrolling on mobile alone by default)
+  if (window.Lenis && !prefersReducedMotion) {
+    const lenis = new Lenis({ duration: 1.1 });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+
+  // Full-page ambient particle field, denser than the restrained variant, with hover interactivity (no connecting lines)
+  if (window.tsParticles && !prefersReducedMotion) {
+    const isSmallScreen = window.matchMedia('(max-width: 600px)').matches;
+    tsParticles.load('particles-hero', {
+      fpsLimit: 60,
+      fullScreen: { enable: false },
+      particles: {
+        number: { value: isSmallScreen ? 6 : 16 },
+        color: { value: ['#C77D3A', '#E0A968', '#1F3B3A'] },
+        opacity: { value: 0.45, random: { enable: true, minimumValue: 0.15 } },
+        size: { value: { min: 1, max: 3.5 } },
+        move: { enable: true, speed: 0.7, direction: 'none', random: true, outModes: { default: 'out' } },
+        links: { enable: false }
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: !isSmallScreen, mode: 'bubble' },
+          onClick: { enable: !isSmallScreen, mode: 'push' },
+          resize: true
+        },
+        modes: {
+          bubble: { distance: 160, size: 6, opacity: 0.7, duration: 0.4 },
+          push: { quantity: 2 }
+        }
+      },
+      detectRetina: true
+    });
+  }
+
+  // Parallax: decorative blobs drift at a fraction of scroll speed for a sense of depth
+  if (!prefersReducedMotion) {
+    const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
+    if (parallaxEls.length) {
+      let ticking = false;
+      function updateParallax() {
+        const y = window.scrollY;
+        parallaxEls.forEach(el => {
+          const factor = parseFloat(el.getAttribute('data-parallax')) || 0.2;
+          el.style.transform = `translateY(${y * factor}px)`;
+        });
+        ticking = false;
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }, { passive: true });
+      updateParallax();
+    }
+  }
 </script>
 </body>
 </html>
