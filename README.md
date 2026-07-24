@@ -50,7 +50,7 @@ Once `thecarguild.com` is purchased:
 2. Netlify gives you either nameservers to point the registrar at, or a couple of DNS records (A/CNAME) to add at your registrar. Either way it's a 5-minute change, and Netlify auto-provisions free HTTPS once DNS propagates.
 
 ## Notes
-- Free Netlify tier covers 100 form submissions/month — plenty for early validation.
+- Form submissions are free and unlimited on Netlify's current (credits-based) plans — no cap on waitlist size. Confirmed via [Netlify's billing docs](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/#credit-usage-for-forms-submissions).
 - Every `git push` to `main` auto-redeploys the live site — no manual redeploy step needed.
 - If you ever want a redirect page (`/thanks`) instead of the current inline JS success state, that's a config change, not a rebuild — ask and it's a small edit.
 - **Resolved:** Lenis smooth-scroll was added for polish, but dragged noticeably in real use (matches the jitter we saw during automated testing) and was removed rather than tuned. Native scrolling — plus the existing `scroll-behavior: smooth` CSS for anchor jumps — replaces it.
