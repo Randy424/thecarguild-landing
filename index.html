@@ -321,7 +321,7 @@
             <div class="field"><input type="email" id="email" name="email" placeholder="Email address" required aria-label="Email address" /></div>
             <div class="field-row">
               <div class="field"><input type="text" id="name" name="name" placeholder="First name (optional)" aria-label="First name" /></div>
-              <div class="field"><input type="text" id="area" name="area" placeholder="LA area (optional)" aria-label="LA area" /></div>
+              <div class="field"><input type="text" id="zip" name="zip" placeholder="ZIP code" inputmode="numeric" maxlength="5" required aria-label="ZIP code" /></div>
             </div>
             <button type="submit" class="btn btn-primary" id="submit-btn">Keep me posted</button>
           </form>
@@ -368,18 +368,23 @@
 
   const form = document.getElementById('waitlist');
   const emailInput = document.getElementById('email');
+  const zipInput = document.getElementById('zip');
   form.addEventListener('submit', function(e){
     e.preventDefault();
     const email = emailInput.value.trim();
     if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
       emailInput.focus(); emailInput.style.borderColor = '#B0483B'; return;
     }
+    const zip = zipInput.value.trim();
+    if(!/^\d{5}$/.test(zip)){
+      zipInput.focus(); zipInput.style.borderColor = '#B0483B'; return;
+    }
     const payload = {
       'form-name': 'waitlist',
       role,
       email,
       name: document.getElementById('name').value.trim(),
-      area: document.getElementById('area').value.trim()
+      zip
     };
     fetch('/', {
       method: 'POST',
