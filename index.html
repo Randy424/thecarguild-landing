@@ -402,7 +402,6 @@
 </script>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.12.0/tsparticles.slim.bundle.min.js"></script>
 <script>
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -410,13 +409,6 @@
   // Scroll-reveal (AOS) — snappier, more dramatic entrances than the restrained variant
   if (window.AOS && !prefersReducedMotion) {
     AOS.init({ duration: 550, easing: 'ease-out-back', once: true, offset: 60 });
-  }
-
-  // Smooth wheel scrolling (Lenis leaves native touch scrolling on mobile alone by default)
-  if (window.Lenis && !prefersReducedMotion) {
-    const lenis = new Lenis({ duration: 1.1 });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
   }
 
   // Full-page ambient particle field, denser than the restrained variant, with hover interactivity (no connecting lines)
