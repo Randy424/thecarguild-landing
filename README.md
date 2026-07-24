@@ -9,7 +9,7 @@ Static site, no build step. `index.html` is the only page — the live/default d
 - JS submits via `fetch()` (AJAX) so the page keeps its inline "you're on the list" success state instead of a hard page reload.
 - Every field Netlify needs a `name` attribute on (`email`, `name`, `area`, `role`) is wired.
 - Mobile pass: added a sub-480px breakpoint (stacks the name/area fields, tightens padding), 44px min touch targets on the role-toggle buttons.
-- Scroll-reveal via [AOS](https://michalsnik.github.io/aos/) (flip/zoom on the promise cards, staggered), smooth wheel scrolling via [Lenis](https://lenis.darkroom.engineering/), a light ambient particle scatter via [tsParticles](https://particles.js.org/) with parallax-drifting decorative blobs behind two sections — all loaded via CDN (`<script src>` tags, no build step), and all gated behind `prefers-reduced-motion` so they fully disable for users who've asked for reduced motion at the OS level.
+- Scroll-reveal via [AOS](https://michalsnik.github.io/aos/) (flip/zoom on the promise cards, staggered) and a light ambient particle scatter via [tsParticles](https://particles.js.org/) with parallax-drifting decorative blobs behind two sections — loaded via CDN (`<script src>` tags, no build step), gated behind `prefers-reduced-motion` so they fully disable for users who've asked for reduced motion at the OS level. (Smooth-scroll via Lenis was tried and removed — see Notes.)
 
 ## Local development
 
@@ -53,4 +53,4 @@ Once `thecarguild.com` is purchased:
 - Free Netlify tier covers 100 form submissions/month — plenty for early validation.
 - Every `git push` to `main` auto-redeploys the live site — no manual redeploy step needed.
 - If you ever want a redirect page (`/thanks`) instead of the current inline JS success state, that's a config change, not a rebuild — ask and it's a small edit.
-- **Known issue to watch:** during testing, Lenis's smooth-scroll inertia occasionally fought with rapid/repeated scroll input (page position jumped unpredictably). Try it yourself with fast trackpad flicks — if it feels janky, we can tune down `duration`/`wheelMultiplier` in the Lenis config or drop it.
+- **Resolved:** Lenis smooth-scroll was added for polish, but dragged noticeably in real use (matches the jitter we saw during automated testing) and was removed rather than tuned. Native scrolling — plus the existing `scroll-behavior: smooth` CSS for anchor jumps — replaces it.
